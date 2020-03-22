@@ -32,8 +32,8 @@ def plot_cases(
     n_countries = len(countries_to_plot)
 
     pp = figure(
-        plot_width=800,
-        plot_height=650,
+        plot_width=850,
+        plot_height=700,
         x_axis_type="datetime",
         y_axis_type="log",
         x_axis_label="Date",
@@ -131,7 +131,7 @@ def plot_cases(
     pp.legend.location = "top_left"
     pp.legend.click_policy = "mute"
     pp.legend.title = "Click to highlight"
-    pp.legend.label_text_font_size = "10pt"
+    pp.legend.label_text_font_size = "8pt"
     pp.x_range = Range1d(datetime(2020, 1, 1), datetime.now())
     pp.y_range = Range1d(ymin, ymax)
 
@@ -300,8 +300,8 @@ print(corona_sums_hawaii)
 counties_to_plot = [
     "Hawaii County, HI",
     "Honolulu County, HI",
-    "Maui County, HI",
-    "Kauai County, HI",
+    # "Maui County, HI",
+    # "Kauai County, HI",
 ]
 states_to_plot = ["California", "Hawaii"]
 countries_to_plot = [
@@ -333,7 +333,7 @@ p1 = plot_cases(
     case="Confirmed",
     ymin=1,
     ymax=1e5,
-    thresh_confirmed=1000,
+    thresh_confirmed=2000,
 )
 p1.title.text = 'Number of "confirmed" COVID-19 cases'
 
@@ -348,7 +348,7 @@ p2 = plot_cases(
     case="Deaths",
     ymin=1,
     ymax=1e5,
-    thresh_confirmed=1000,
+    thresh_confirmed=2000,
 )
 p2.title.text = 'Number of "death" COVID-19 cases'
 
@@ -363,7 +363,7 @@ p3 = plot_cases(
     case="Recovered",
     ymin=1,
     ymax=1e5,
-    thresh_confirmed=1000,
+    thresh_confirmed=2000,
 )
 p3.title.text = 'Number of "recovered" COVID-19 cases'
 
@@ -378,14 +378,14 @@ p4 = plot_cases(
     case="Active",
     ymin=1,
     ymax=1e5,
-    thresh_confirmed=1000,
+    thresh_confirmed=2000,
 )
 p4.title.text = 'Number of "currently active" COVID-19 cases'
 
 output_file("../gist/index.html", title="COVID-19 Cases")
 
-# p = column(p1, p2, p3, p4)
-p = column(p1)
+p = column(p1, p2, p3, p4)
+# p = column(p1)
 save(p)
 
 

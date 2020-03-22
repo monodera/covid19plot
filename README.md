@@ -40,7 +40,7 @@ Also, currently,  I'm working in a directory with a structure like this.
 
 The `COVID-19` folder is a cloned repository of [the JHU CSSE database](https://github.com/CSSEGISandData/COVID-19) for international data and US state data.
 
-The `csv` directory under this repository (`covid19plot) contains CSV files for counties in State of Hawaii with the identical format to those of the JHU CSSE database.
+The `csv` directory under this repository (`covid19plot`) contains CSV files for counties in State of Hawaii with the identical format to those of the JHU CSSE database.
 
 After the script is executed it writes `index.html` under `gist` folder.
 
