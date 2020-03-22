@@ -337,44 +337,50 @@ p1 = plot_cases(
 )
 p1.title.text = 'Number of "confirmed" COVID-19 cases'
 
-# p2 = plot_cases(
-#     corona_sums_states,
-#     corona_sums_countries,
-#     colors,
-#     states_to_plot,
-#     countries_to_plot,
-#     case="Deaths",
-#     ymin=1,
-#     ymax=1e5,
-#     thresh_confirmed=1000,
-# )
-# p2.title.text = 'Number of "death" COVID-19 cases'
+p2 = plot_cases(
+    corona_sums_hawaii,
+    corona_sums_states,
+    corona_sums_countries,
+    colors,
+    counties_to_plot,
+    states_to_plot,
+    countries_to_plot,
+    case="Deaths",
+    ymin=1,
+    ymax=1e5,
+    thresh_confirmed=1000,
+)
+p2.title.text = 'Number of "death" COVID-19 cases'
 
-# p3 = plot_cases(
-#     corona_sums_states,
-#     corona_sums_countries,
-#     colors,
-#     states_to_plot,
-#     countries_to_plot,
-#     case="Recovered",
-#     ymin=1,
-#     ymax=1e5,
-#     thresh_confirmed=1000,
-# )
-# p3.title.text = 'Number of "recovered" COVID-19 cases'
+p3 = plot_cases(
+    corona_sums_hawaii,
+    corona_sums_states,
+    corona_sums_countries,
+    colors,
+    counties_to_plot,
+    states_to_plot,
+    countries_to_plot,
+    case="Recovered",
+    ymin=1,
+    ymax=1e5,
+    thresh_confirmed=1000,
+)
+p3.title.text = 'Number of "recovered" COVID-19 cases'
 
-# p4 = plot_cases(
-#     corona_sums_states,
-#     corona_sums_countries,
-#     colors,
-#     states_to_plot,
-#     countries_to_plot,
-#     case="Active",
-#     ymin=1,
-#     ymax=1e5,
-#     thresh_confirmed=1000,
-# )
-# p4.title.text = 'Number of "currently active" COVID-19 cases'
+p4 = plot_cases(
+    corona_sums_hawaii,
+    corona_sums_states,
+    corona_sums_countries,
+    colors,
+    counties_to_plot,
+    states_to_plot,
+    countries_to_plot,
+    case="Active",
+    ymin=1,
+    ymax=1e5,
+    thresh_confirmed=1000,
+)
+p4.title.text = 'Number of "currently active" COVID-19 cases'
 
 output_file("../gist/index.html", title="COVID-19 Cases")
 
