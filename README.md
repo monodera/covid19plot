@@ -90,6 +90,7 @@ At the end, you should find `index.html` in the `gist` directory you made in the
 
 ## What's in the output
 
+You can see the example of the output at https://bl.ocks.org/monodera/78ce91f69e3bf5da21302807f373b5b6 .
 
 The script produces 4 plots with interactive legends and tooltips.  You can highlight or mute lines by clicking either legend entries and lines themselves.  You can also see numbers and regions at a given date by hovering the mouse cursor.
 
