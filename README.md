@@ -1,4 +1,5 @@
 # COVID-19 Plots
+---
 
 Plot COVID-19 cases based on publicly available data with some emphasis on the Hawaii cases.
 The project is mainly for my own purpose.  I do not recommend to trust my plots too much for any of your decision making.
@@ -36,7 +37,10 @@ Also, currently,  I'm working in a directory with a structure like this.
    └── index.html (Output file from the script)
 
 ```
-The `COVID-19` folder is a cloned repository of [the JHT CSSE database](https://github.com/CSSEGISandData/COVID-19) for international data and US state data.
+
+The `COVID-19` folder is a cloned repository of [the JHU CSSE database](https://github.com/CSSEGISandData/COVID-19) for international data and US state data.
+
+The `csv` directory under this repository (`covid19plot) contains CSV files for counties in State of Hawaii with the identical format to those of the JHU CSSE database.
 
 After the script is executed it writes `index.html` under `gist` folder.
 
@@ -71,7 +75,8 @@ git clone https://github.com/monodera/covid19plot.git
 ```
 
 
-## Run the script
+### Run the script
+
 
 It's very simple.  Just execute the script.
 
@@ -84,6 +89,7 @@ At the end, you should find `index.html` in the `gist` directory you made in the
 
 
 ## What's in the output
+
 
 The script produces 4 plots with interactive legends and tooltips.  You can highlight or mute lines by clicking either legend entries and lines themselves.  You can also see numbers and regions at a given date by hovering the mouse cursor.
 
@@ -108,8 +114,6 @@ The cumulative number of recovered cases at each day.
 
 The cumulative number of active (confirmed - deaths - recovered) cases at each day.
 
-
-
 ## Contributing
 
 Please make any pull requests and put issues.
@@ -117,14 +121,15 @@ Please make any pull requests and put issues.
 
 ## Authors
 
-* **Masato Onodera** - [monodera](https://github.com/monodera)
-
+- **Masato Onodera** - [monodera](https://github.com/monodera)
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
+
 
 - [JHU database](https://github.com/CSSEGISandData/COVID-19)
 - [News Releasesfrom Department of Health, State of Hawaii](https://health.hawaii.gov/news/category/corona-virus/)
