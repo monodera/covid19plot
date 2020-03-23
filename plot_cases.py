@@ -8,7 +8,7 @@ import pandas as pd
 from functools import reduce
 import colorcet as cc
 from bokeh.plotting import figure, output_file, show, save, ColumnDataSource
-from bokeh.models import ColumnDataSource, Range1d, HoverTool
+from bokeh.models import ColumnDataSource, Range1d, HoverTool, Div
 from bokeh.palettes import viridis, cividis, all_palettes
 from bokeh.layouts import column, row, gridplot
 
@@ -112,7 +112,7 @@ def plot_cases(
             df_country[df_country["type"] == "Confirmed"]["Count"].max()
             > thresh_confirmed
         ):
-            print(country, df_country[df_country["type"] == case]["Count"].max())
+            print(country, df_country[df_country["type"] == "Confirmed"]["Count"].max())
             df_country = df_country[df_country["type"] == case]
             pp.line(
                 x="Date",
@@ -382,9 +382,22 @@ p4 = plot_cases(
 )
 p4.title.text = 'Number of "currently active" COVID-19 cases'
 
+div_disclaimer_en = Div(
+    text="""The plots here are mainly for my own purpose. I do not recommend to trust my plots too much for any of your decision making. Please refer more reliable sources such WHO, CDC, and other local authorities if you are not sure what you are looking at.""",
+    width=850,
+)
+div_disclaimer_ja = Div(
+    text="""以下の図は自分用に作成したものです。そのため、図を過剰に信用して何かの判断の根拠にすることは避けてください。もしなにが描かれているかわからないようでしたら、WHOやCDC、各種国や自治体等の一次情報にあたることをおすすめします。""",
+    width=850,
+)
+
+div_lastupdate = Div(
+    text="""Last Update: {:s} (UTC)""".format(datetime.utcnow().isoformat()), width=850
+)
+
 output_file("../gist/index.html", title="COVID-19 Cases")
 
-p = column(p1, p2, p3, p4)
+p = column(div_disclaimer_en, div_disclaimer_ja, div_lastupdate, p1, p2, p3, p4)
 # p = column(p1)
 save(p)
 
