@@ -112,7 +112,7 @@ def plot_cases(
             df_country[df_country["type"] == "Confirmed"]["Count"].max()
             > thresh_confirmed
         ):
-            print(country, df_country[df_country["type"] == "Confirmed"]["Count"].max())
+            # print(country, df_country[df_country["type"] == "Confirmed"]["Count"].max())
             df_country = df_country[df_country["type"] == case]
             pp.line(
                 x="Date",
@@ -156,18 +156,14 @@ def plot_cases(
 # reference : https://medium.com/analytics-vidhya/mapping-the-spread-of-coronavirus-covid-19-d7830c4282e
 # %%
 df_confirmed = pd.read_csv(
-    "../COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv"
+    "../COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv"
 )
 df_deaths = pd.read_csv(
-    "../COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv"
-)
-df_recovered = pd.read_csv(
-    "../COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv"
+    "../COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
 )
 
 df_confirmed_hawaii = pd.read_csv("csv/time_series_19-covid-Confirmed_Hawaii.csv")
 df_deaths_hawaii = pd.read_csv("csv/time_series_19-covid-Deaths_Hawaii.csv")
-df_recovered_hawaii = pd.read_csv("csv/time_series_19-covid-Recovered_Hawaii.csv")
 
 countries = sorted(df_confirmed["Country/Region"].unique())
 
@@ -191,19 +187,6 @@ deaths_tidy = pd.melt(
     var_name="Date",
     value_name="Deaths",
 )
-recovered_tidy = pd.melt(
-    df_recovered,
-    id_vars=id_list,
-    value_vars=vars_list,
-    var_name="Date",
-    value_name="Recovered",
-)
-active = (
-    confirmed_tidy["Confirmed"] - deaths_tidy["Deaths"] - recovered_tidy["Recovered"]
-)
-active_tidy = recovered_tidy.copy()
-active_tidy.rename(columns={"Recovered": "Active"}, inplace=True)
-active_tidy["Active"] = active
 
 # for Hawaii
 id_list_hawaii = df_confirmed_hawaii.columns.to_list()[:4]
@@ -222,25 +205,25 @@ deaths_hawaii_tidy = pd.melt(
     var_name="Date",
     value_name="Deaths",
 )
-recovered_hawaii_tidy = pd.melt(
-    df_recovered_hawaii,
-    id_vars=id_list_hawaii,
-    value_vars=vars_list_hawaii,
-    var_name="Date",
-    value_name="Recovered",
-)
-active_hawaii = (
-    confirmed_hawaii_tidy["Confirmed"]
-    - deaths_hawaii_tidy["Deaths"]
-    - recovered_hawaii_tidy["Recovered"]
-)
-active_hawaii_tidy = recovered_hawaii_tidy.copy()
-active_hawaii_tidy.rename(columns={"Recovered": "Active"}, inplace=True)
-active_hawaii_tidy["Active"] = active_hawaii
+# recovered_hawaii_tidy = pd.melt(
+#     df_recovered_hawaii,
+#     id_vars=id_list_hawaii,
+#     value_vars=vars_list_hawaii,
+#     var_name="Date",
+#     value_name="Recovered",
+# )
+# active_hawaii = (
+#     confirmed_hawaii_tidy["Confirmed"]
+#     - deaths_hawaii_tidy["Deaths"]
+#     - recovered_hawaii_tidy["Recovered"]
+# )
+# active_hawaii_tidy = recovered_hawaii_tidy.copy()
+# active_hawaii_tidy.rename(columns={"Recovered": "Active"}, inplace=True)
+# active_hawaii_tidy["Active"] = active_hawaii
 
 # %%
 # 1.3 Merging the three dataframes into one
-data_frames = [confirmed_tidy, deaths_tidy, recovered_tidy, active_tidy]
+data_frames = [confirmed_tidy, deaths_tidy]
 df_corona = reduce(
     lambda left, right: pd.merge(left, right, on=id_list + ["Date"], how="outer"),
     data_frames,
@@ -249,8 +232,6 @@ df_corona = reduce(
 data_frames_hawaii = [
     confirmed_hawaii_tidy,
     deaths_hawaii_tidy,
-    recovered_hawaii_tidy,
-    active_hawaii_tidy,
 ]
 df_corona_hawaii = reduce(
     lambda left, right: pd.merge(
@@ -261,7 +242,7 @@ df_corona_hawaii = reduce(
 
 # 1.4 Each row should only represent one observation
 id_vars = df_corona.columns[:5]
-data_type = ["Confirmed", "Deaths", "Recovered", "Active"]
+data_type = ["Confirmed", "Deaths"]
 df_corona = pd.melt(
     df_corona,
     id_vars=id_vars,
@@ -291,7 +272,10 @@ corona_sums_countries = df_corona.groupby(
 ).agg({"Count": "sum"})
 corona_sums_hawaii = df_corona_hawaii
 
-print(corona_sums_hawaii)
+
+# print(df[df['A'].str.contains("hello")])
+
+# print(corona_sums_hawaii)
 
 # %%
 
@@ -352,35 +336,35 @@ p2 = plot_cases(
 )
 p2.title.text = 'Number of "death" COVID-19 cases'
 
-p3 = plot_cases(
-    corona_sums_hawaii,
-    corona_sums_states,
-    corona_sums_countries,
-    colors,
-    counties_to_plot,
-    states_to_plot,
-    countries_to_plot,
-    case="Recovered",
-    ymin=1,
-    ymax=1e5,
-    thresh_confirmed=2000,
-)
-p3.title.text = 'Number of "recovered" COVID-19 cases'
+# p3 = plot_cases(
+#     corona_sums_hawaii,
+#     corona_sums_states,
+#     corona_sums_countries,
+#     colors,
+#     counties_to_plot,
+#     states_to_plot,
+#     countries_to_plot,
+#     case="Recovered",
+#     ymin=1,
+#     ymax=1e5,
+#     thresh_confirmed=2000,
+# )
+# p3.title.text = 'Number of "recovered" COVID-19 cases'
 
-p4 = plot_cases(
-    corona_sums_hawaii,
-    corona_sums_states,
-    corona_sums_countries,
-    colors,
-    counties_to_plot,
-    states_to_plot,
-    countries_to_plot,
-    case="Active",
-    ymin=1,
-    ymax=1e5,
-    thresh_confirmed=2000,
-)
-p4.title.text = 'Number of "currently active" COVID-19 cases'
+# p4 = plot_cases(
+#     corona_sums_hawaii,
+#     corona_sums_states,
+#     corona_sums_countries,
+#     colors,
+#     counties_to_plot,
+#     states_to_plot,
+#     countries_to_plot,
+#     case="Active",
+#     ymin=1,
+#     ymax=1e5,
+#     thresh_confirmed=2000,
+# )
+# p4.title.text = 'Number of "currently active" COVID-19 cases'
 
 div_disclaimer_en = Div(
     text="""The plots here are mainly for my own purpose. I do not recommend to trust my plots too much for any of your decision making. Please refer more reliable sources such WHO, CDC, and other local authorities if you are not sure what you are looking at.""",
@@ -397,7 +381,7 @@ div_lastupdate = Div(
 
 output_file("../gist/index.html", title="COVID-19 Cases")
 
-p = column(div_disclaimer_en, div_disclaimer_ja, div_lastupdate, p1, p2, p3, p4)
+p = column(div_disclaimer_en, div_disclaimer_ja, div_lastupdate, p1, p2)
 # p = column(p1)
 save(p)
 
