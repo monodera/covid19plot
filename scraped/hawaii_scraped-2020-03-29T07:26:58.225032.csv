@@ -1,0 +1,23 @@
+category,reported_on_the_day,reporte_by_the_day
+Total Cases,29,151
+-,,
+Residence,,
+HI Residents,24,124
+Non-HI Residents,3,17
+Unknown,2,6
+-,,
+County of Diagnosis,,
+Honolulu,19,108
+Hawaii,3,10
+Maui,0,16
+Kauai,6,11
+HI Residents diagnosed outside of HI,0,2
+Unknown,1,4
+Recovered,,
+Total released from isolation,3,39
+-,,
+-,,
+Risk Factors,,
+Travel,3,96
+Community,0,8
+Unknown,26,47
