@@ -23,6 +23,7 @@ def plot_cases(
     states_to_plot,
     countries_to_plot,
     case="Confirmed",
+    case_nyt="cases",
     ymin=1,
     ymax=1e5,
     thresh_confirmed=1000,
@@ -65,14 +66,12 @@ def plot_cases(
         )
 
     for i, state in enumerate(states_to_plot, start=n_counties):
-        df_state = corona_sums_states[
-            (corona_sums_states["Province/State"] == state)
-            & (corona_sums_states["type"] == case)
-        ]
+        df_state = corona_sums_states[corona_sums_states["state"] == state]
+
         c = colors[i]
         pp.line(
-            x="Date",
-            y="Count",
+            x="date",
+            y=case_nyt,
             source=df_state,
             line_width=3,
             color=c,
@@ -81,7 +80,7 @@ def plot_cases(
             muted_alpha=0.4,
             muted_line_width=2,
             muted=True,
-            legend_group="Province/State",
+            legend_group="state",
         )
 
     for i, country in enumerate(countries_to_plot, start=(n_counties + n_states)):
@@ -138,6 +137,7 @@ def plot_cases(
     hover = pp.select(dict(type=HoverTool))
     hover.tooltips = [
         ("Province/State", "@{Province/State}"),
+        ("State", "@{state}"),
         ("Country/Region", "@{Country/Region}"),
         ("Date", "$x{%Y-%m-%d}"),
         ("Value", "$y{0,0}"),
@@ -160,6 +160,9 @@ df_confirmed = pd.read_csv(
 )
 df_deaths = pd.read_csv(
     "../COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv"
+)
+df_recovered = pd.read_csv(
+    "../COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv"
 )
 
 df_confirmed_hawaii = pd.read_csv("csv/time_series_19-covid-Confirmed_Hawaii.csv")
@@ -186,6 +189,13 @@ deaths_tidy = pd.melt(
     value_vars=vars_list,
     var_name="Date",
     value_name="Deaths",
+)
+recovered_tidy = pd.melt(
+    df_recovered,
+    id_vars=id_list,
+    value_vars=vars_list,
+    var_name="Date",
+    value_name="Recovered",
 )
 
 # for Hawaii
@@ -223,7 +233,7 @@ deaths_hawaii_tidy = pd.melt(
 
 # %%
 # 1.3 Merging the three dataframes into one
-data_frames = [confirmed_tidy, deaths_tidy]
+data_frames = [confirmed_tidy, deaths_tidy, recovered_tidy]
 df_corona = reduce(
     lambda left, right: pd.merge(left, right, on=id_list + ["Date"], how="outer"),
     data_frames,
@@ -264,13 +274,24 @@ df_corona_hawaii["Date"] = pd.to_datetime(
     df_corona_hawaii["Date"], format="%m/%d/%y", errors="raise"
 )
 
-corona_sums_states = df_corona.groupby(
-    ["type", "Date", "Province/State"], as_index=False
-).agg({"Count": "sum"})
+# corona_sums_states = df_corona.groupby(
+#     ["type", "Date", "Province/State"], as_index=False
+# ).agg({"Count": "sum"})
 corona_sums_countries = df_corona.groupby(
     ["type", "Date", "Country/Region"], as_index=False
 ).agg({"Count": "sum"})
 corona_sums_hawaii = df_corona_hawaii
+
+
+# %%
+# NYT data
+df_states = pd.read_csv("../../nyt_covid-19-data/us-states.csv")
+df_states["date"] = pd.to_datetime(df_states["date"], format="%Y/%m/%d", errors="raise")
+corona_sums_states = df_states
+
+df_counties = pd.read_csv("../../nyt_covid-19-data/us-counties.csv")
+df_counties['date'] = pd.to_datetime(df_counties["date"], format="%Y/%m/%d", errors="raise")
+corona_sums_counties = df_counties
 
 
 # print(df[df['A'].str.contains("hello")])
@@ -315,9 +336,10 @@ p1 = plot_cases(
     states_to_plot,
     countries_to_plot,
     case="Confirmed",
-    ymin=1,
-    ymax=1e5,
-    thresh_confirmed=2000,
+    case_nyt="cases",
+    ymin=0.9,
+    ymax=5e5,
+    thresh_confirmed=3000,
 )
 p1.title.text = 'Number of "confirmed" COVID-19 cases'
 
@@ -330,9 +352,10 @@ p2 = plot_cases(
     states_to_plot,
     countries_to_plot,
     case="Deaths",
-    ymin=1,
-    ymax=1e5,
-    thresh_confirmed=2000,
+    case_nyt="deaths",
+    ymin=0.9,
+    ymax=5e5,
+    thresh_confirmed=3000,
 )
 p2.title.text = 'Number of "death" COVID-19 cases'
 
