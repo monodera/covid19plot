@@ -4,6 +4,7 @@
 import os
 from datetime import datetime, timedelta, date
 import pandas as pd
+import numpy as np
 from functools import reduce
 import colorcet as cc
 from bokeh.plotting import figure, output_file, show, save, ColumnDataSource
@@ -181,9 +182,43 @@ def read_nyt_data():
     return df_counties, df_states
 
 
+def read_tokyo_data():
+    df = pd.read_json(
+        "https://raw.githubusercontent.com/tokyo-metropolitan-gov/covid19/development/data/data.json"
+    )
+
+    dates = []
+    numbers = []
+    total = []
+    for i, entry in enumerate(df["patients_summary"]["data"]):
+        # print(i, entry)
+        dates.append(entry["日付"])
+        numbers.append(entry["小計"])
+        if i == 0:
+            total.append(entry["小計"])
+        else:
+            total.append(total[i - 1] + entry["小計"])
+    # print(dates, numbers, total)
+
+    dfout = pd.DataFrame(
+        data={"date": dates, "cases": total, "deaths": np.array(total) * np.nan}
+    )
+    # dfout["date"] = pd.to_datetime(dfout["date"], format="%Y-%m-%dT%H:%M:%SZ")
+    dfout["date"] = pd.to_datetime(dfout["date"])
+
+    return dfout
+
+
+# def read_toyokeizai_data():
+#     df_japan = pd.read_csv(
+#         "https://raw.githubusercontent.com/kaz-ogiwara/covid19/master/data/individuals.csv"
+#     )
+
+
 # %%
 def plot_cases(
     df_hawaii,
+    df_japan,
     df_counties,
     df_states,
     df_global,
@@ -217,6 +252,10 @@ def plot_cases(
             ]
             legend = "{} (County)".format(place)
             ystr = "Count"
+        elif category == "japan":
+            df_plot = df_japan
+            legend = "{}".format(place)
+            ystr = "cases"
         elif category == "county":
             df_plot = df_counties[df_counties["place"] == place]
             legend = "{} (County)".format(place)
@@ -297,12 +336,14 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
     df_global = read_jhu_data()
     df_hawaii = read_hawaii_data()
     df_counties, df_states = read_nyt_data()
+    df_japan = read_tokyo_data()
 
     n_lines = df_places_to_plot["place"].size
     colors = cc.glasbey_dark[:n_lines]
 
     p1 = plot_cases(
         df_hawaii,
+        df_japan,
         df_counties,
         df_states,
         df_global,
@@ -317,6 +358,7 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
 
     p2 = plot_cases(
         df_hawaii,
+        df_japan,
         df_counties,
         df_states,
         df_global,
@@ -360,6 +402,7 @@ if __name__ == "__main__":
             "place": [
                 "Hawaii",
                 "Honolulu",
+                "Tokyo",
                 "Santa Clara",
                 "California",
                 "Hawaii",
@@ -378,6 +421,7 @@ if __name__ == "__main__":
             "category": [
                 "hawaii",
                 "hawaii",
+                "japan",
                 "county",
                 "state",
                 "state",
