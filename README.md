@@ -27,48 +27,32 @@ Also, currently,  I'm working in a directory with a structure like this.
 
 ```
 .
-├── COVID-19
 ├── covid19plot (This repository)
 │  ├── csv/
 │  ├── LICENSE
-│  ├── plot_cases.py
+│  ├── make_covid19_plots.py
 │  └── README.md
-└── gist
+└── gist_covid19_plot
    └── index.html (Output file from the script)
 
 ```
 
-The `COVID-19` folder is a cloned repository of [the JHU CSSE database](https://github.com/CSSEGISandData/COVID-19) for international data and US state data.
+The `csv` directory under this repository (`covid19plot`) contains CSV files for counties in State of Hawaii with the identical format to those of the JHU CSSE database.  I'm trying to keep update them, but make sure you are fine with them.  The update may suddenly stop.  At some point, I'm planning to use the CSV files from the NYT repository.
 
-The `csv` directory under this repository (`covid19plot`) contains CSV files for counties in State of Hawaii with the identical format to those of the JHU CSSE database.
-
-After the script is executed it writes `index.html` under `gist` folder.
+After the script is executed it writes `index.html` under `gist_covid19_plot` folder.
 
 I should make the structure more flexible, but currently it works for my purpose.
 
 
 ### Installing
 
-#### 1. Make a parent directory and go there
+#### 1. Create the output directory
 
 ```
-mkdir covid19_plots
-cd covid19_plots
+mkdir gist_covid19_plot  # sorry it's hard-coded
 ```
 
-#### 2. Clone the JHU CSSE repository
-
-```
-git clone https://github.com/CSSEGISandData/COVID-19.git
-```
-
-#### 3. Create the output directory
-
-```
-mkdir gist  # sorry it's hard-coded
-```
-
-#### 4. Clone this repository
+#### 2. Clone this repository
 
 ```
 git clone https://github.com/monodera/covid19plot.git
@@ -82,10 +66,10 @@ It's very simple.  Just execute the script.
 
 ```
 cd covid19plot
-python ./plot_cases.py
+python ./make_covid19_plots.py
 ```
 
-At the end, you should find `index.html` in the `gist` directory you made in the step 3. Open it with a web browser.
+At the end, you should find `index.html` in the `gist_covid19_plot` directory you made in the step 1. Open it with a web browser.
 
 
 ## What's in the output
@@ -106,15 +90,6 @@ The cumulative number of confirmed cases at each day.
 The cumulative number of deaths at each day.
 
 
-### 3rd panel from the top
-
-The cumulative number of recovered cases at each day.
-
-
-### 4th panel from the top
-
-The cumulative number of active (confirmed - deaths - recovered) cases at each day.
-
 ## Contributing
 
 Please make any pull requests and put issues.
@@ -133,5 +108,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 
 - [JHU database](https://github.com/CSSEGISandData/COVID-19)
-- [News Releasesfrom Department of Health, State of Hawaii](https://health.hawaii.gov/news/category/corona-virus/)
+- [NYT database](https://github.com/nytimes/covid-19-data)
+- [News Releases from Department of Health, State of Hawaii](https://health.hawaii.gov/news/category/corona-virus/)
+- [Hawaii COVID-19 web site](https://hawaiicovid19.com/)
 - [Mapping the Spread of Coronavirus COVID-19 with python and Plotly](https://medium.com/analytics-vidhya/mapping-the-spread-of-coronavirus-covid-19-d7830c4282e)
