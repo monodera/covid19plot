@@ -104,7 +104,7 @@ Please make any pull requests and put issues.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
-## Acknowledgments
+## References
 
 
 - [JHU database](https://github.com/CSSEGISandData/COVID-19)
