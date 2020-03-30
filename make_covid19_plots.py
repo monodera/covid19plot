@@ -201,10 +201,11 @@ def read_tokyo_data():
     # print(dates, numbers, total)
 
     dfout = pd.DataFrame(
-        data={"date": dates, "cases": total, "deaths": np.array(total) * np.nan}
+        data={"date": dates, "cases": total, "deaths": np.array(total) * 0 + np.nan}
     )
     # dfout["date"] = pd.to_datetime(dfout["date"], format="%Y-%m-%dT%H:%M:%SZ")
     dfout["date"] = pd.to_datetime(dfout["date"])
+    print(dfout.head(10))
 
     return dfout
 
@@ -255,15 +256,15 @@ def plot_cases(
         elif category == "japan":
             df_plot = df_japan
             legend = "{}".format(place)
-            ystr = "cases"
+            ystr = case
         elif category == "county":
             df_plot = df_counties[df_counties["place"] == place]
             legend = "{} (County)".format(place)
-            ystr = "cases"
+            ystr = case
         elif category == "state":
             df_plot = df_states[df_states["place"] == place]
             legend = "{} (State)".format(place)
-            ystr = "cases"
+            ystr = case
         elif category == "global":
             df_plot = df_global[
                 (df_global["place"] == place) & (df_global["type"] == case)
