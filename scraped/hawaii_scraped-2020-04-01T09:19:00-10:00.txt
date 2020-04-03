@@ -1,0 +1,11 @@
+|,Novel Coronavirus in Hawaii COVID-19 Positive* Cases  Cumulative totals as of 12:00 noon on March 31, 2020,|
+|,County,|,HI Residents,|,Non-HI Residents,|,Total,|
+|,Hawaii,|,11 (1),|,4 (0),|,15 (1),|
+|,Honolulu,|,146 (21),|,6 (0),|,152 (21),|
+|,Kauai,|,7 (0),|,5 (0),|,12 (0),|
+|,Maui,|,21 (0),|,4 (0),|,25 (0),|
+|,HI residents diagnosed outside of HI,|,,|,,|,2 (0),|
+|,Pending,|,,|,,|,18 (-2)†,|
+|,Total (new),|,,|,,|,224 (20),|
+|,Total Required Hospitalization: 13 (1) Total Deaths: 1 (1)Released from Isolation††: 58 (3),|
+|,*includes presumptive and confirmed cases, data are preliminary and subject to change; note that CDC provides case counts according to states of residence.†Pending cases are reclassified to appropriate categories as more information is collected ††Isolation should be maintained until at least 3 days (72 hours) after resolution of fever and myalgia without the use of antipyretics OR at least 7 days have passed since symptom onset, whichever is longer.,|

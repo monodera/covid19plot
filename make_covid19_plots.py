@@ -205,7 +205,63 @@ def read_tokyo_data():
     )
     # dfout["date"] = pd.to_datetime(dfout["date"], format="%Y-%m-%dT%H:%M:%SZ")
     dfout["date"] = pd.to_datetime(dfout["date"])
-    print(dfout.head(10))
+    # print(dfout.head(10))
+
+    return dfout
+
+
+def read_osaka_data():
+    df = pd.read_json(
+        "https://raw.githubusercontent.com/codeforosaka/covid19/development/data/data.json"
+    )
+
+    dates = []
+    numbers = []
+    total = []
+    for i, entry in enumerate(df["patients_summary"]["data"]):
+        # print(i, entry)
+        dates.append(entry["日付"])
+        numbers.append(entry["小計"])
+        if i == 0:
+            total.append(entry["小計"])
+        else:
+            total.append(total[i - 1] + entry["小計"])
+    # print(dates, numbers, total)
+
+    dfout = pd.DataFrame(
+        data={"date": dates, "cases": total, "deaths": np.array(total) * 0 + np.nan}
+    )
+    # dfout["date"] = pd.to_datetime(dfout["date"], format="%Y-%m-%dT%H:%M:%SZ")
+    dfout["date"] = pd.to_datetime(dfout["date"])
+    # print(dfout.head(10))
+
+    return dfout
+
+
+def read_hyogo_data():
+    df = pd.read_json(
+        "https://raw.githubusercontent.com/stop-covid19-hyogo/covid19/development/data/patients_summary.json"
+    )
+
+    dates = []
+    numbers = []
+    total = []
+    for i, entry in enumerate(df["data"]):
+        # print(i, entry)
+        dates.append(entry["日付"])
+        numbers.append(entry["小計"])
+        if i == 0:
+            total.append(entry["小計"])
+        else:
+            total.append(total[i - 1] + entry["小計"])
+    # print(dates, numbers, total)
+
+    dfout = pd.DataFrame(
+        data={"date": dates, "cases": total, "deaths": np.array(total) * 0 + np.nan}
+    )
+    # dfout["date"] = pd.to_datetime(dfout["date"], format="%Y-%m-%dT%H:%M:%SZ")
+    dfout["date"] = pd.to_datetime(dfout["date"])
+    # print(dfout.head(10))
 
     return dfout
 
@@ -254,7 +310,7 @@ def plot_cases(
             legend = "{} (County)".format(place)
             ystr = "Count"
         elif category == "japan":
-            df_plot = df_japan
+            df_plot = df_japan[place.lower()]
             legend = "{}".format(place)
             ystr = case
         elif category == "county":
@@ -337,7 +393,10 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
     df_global = read_jhu_data()
     df_hawaii = read_hawaii_data()
     df_counties, df_states = read_nyt_data()
-    df_japan = read_tokyo_data()
+    df_tokyo = read_tokyo_data()
+    df_osaka = read_osaka_data()
+    df_hyogo = read_hyogo_data()
+    df_japan = {"tokyo": df_tokyo, "osaka": df_osaka, "hyogo": df_hyogo}
 
     n_lines = df_places_to_plot["place"].size
     colors = cc.glasbey_dark[:n_lines]
@@ -404,6 +463,8 @@ if __name__ == "__main__":
                 "Hawaii",
                 "Honolulu",
                 "Tokyo",
+                "Osaka",
+                "Hyogo",
                 "Santa Clara",
                 "California",
                 "Hawaii",
@@ -423,6 +484,8 @@ if __name__ == "__main__":
             "category": [
                 "hawaii",
                 "hawaii",
+                "japan",
+                "japan",
                 "japan",
                 "county",
                 "state",
