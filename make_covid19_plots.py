@@ -182,71 +182,19 @@ def read_nyt_data():
     return df_counties, df_states
 
 
-def read_tokyo_data():
-    df = pd.read_json(
-        "https://raw.githubusercontent.com/tokyo-metropolitan-gov/covid19/development/data/data.json"
-    )
+def read_tokyolike_data(url=None, primary_column=None):
+    df = pd.read_json(url)
 
     dates = []
     numbers = []
     total = []
-    for i, entry in enumerate(df["patients_summary"]["data"]):
-        # print(i, entry)
-        dates.append(entry["日付"])
-        numbers.append(entry["小計"])
-        if i == 0:
-            total.append(entry["小計"])
-        else:
-            total.append(total[i - 1] + entry["小計"])
-    # print(dates, numbers, total)
 
-    dfout = pd.DataFrame(
-        data={"date": dates, "cases": total, "deaths": np.array(total) * 0 + np.nan}
-    )
-    # dfout["date"] = pd.to_datetime(dfout["date"], format="%Y-%m-%dT%H:%M:%SZ")
-    dfout["date"] = pd.to_datetime(dfout["date"])
-    # print(dfout.head(10))
+    if primary_column is None:
+        df_primary = df["data"]
+    else:
+        df_primary = df["patients_summary"]["data"]
 
-    return dfout
-
-
-def read_osaka_data():
-    df = pd.read_json(
-        "https://raw.githubusercontent.com/codeforosaka/covid19/development/data/data.json"
-    )
-
-    dates = []
-    numbers = []
-    total = []
-    for i, entry in enumerate(df["patients_summary"]["data"]):
-        # print(i, entry)
-        dates.append(entry["日付"])
-        numbers.append(entry["小計"])
-        if i == 0:
-            total.append(entry["小計"])
-        else:
-            total.append(total[i - 1] + entry["小計"])
-    # print(dates, numbers, total)
-
-    dfout = pd.DataFrame(
-        data={"date": dates, "cases": total, "deaths": np.array(total) * 0 + np.nan}
-    )
-    # dfout["date"] = pd.to_datetime(dfout["date"], format="%Y-%m-%dT%H:%M:%SZ")
-    dfout["date"] = pd.to_datetime(dfout["date"])
-    # print(dfout.head(10))
-
-    return dfout
-
-
-def read_hyogo_data():
-    df = pd.read_json(
-        "https://raw.githubusercontent.com/stop-covid19-hyogo/covid19/development/data/patients_summary.json"
-    )
-
-    dates = []
-    numbers = []
-    total = []
-    for i, entry in enumerate(df["data"]):
+    for i, entry in enumerate(df_primary):
         # print(i, entry)
         dates.append(entry["日付"])
         numbers.append(entry["小計"])
@@ -309,10 +257,12 @@ def plot_cases(
             ]
             legend = "{} (County)".format(place)
             ystr = "Count"
-        elif category == "japan":
+        elif category == "japan" and case == "cases":
             df_plot = df_japan[place.lower()]
             legend = "{}".format(place)
             ystr = case
+        elif category == "japan" and case == "deaths":
+            continue
         elif category == "county":
             df_plot = df_counties[df_counties["place"] == place]
             legend = "{} (County)".format(place)
@@ -393,9 +343,18 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
     df_global = read_jhu_data()
     df_hawaii = read_hawaii_data()
     df_counties, df_states = read_nyt_data()
-    df_tokyo = read_tokyo_data()
-    df_osaka = read_osaka_data()
-    df_hyogo = read_hyogo_data()
+    df_tokyo = read_tokyolike_data(
+        url="https://raw.githubusercontent.com/tokyo-metropolitan-gov/covid19/development/data/data.json",
+        primary_column="patients_summary",
+    )
+    df_osaka = read_tokyolike_data(
+        url="https://raw.githubusercontent.com/codeforosaka/covid19/development/data/data.json",
+        primary_column="patients_summary",
+    )
+    df_hyogo = read_tokyolike_data(
+        url="https://raw.githubusercontent.com/stop-covid19-hyogo/covid19/development/data/patients_summary.json",
+        primary_column=None,
+    )
     df_japan = {"tokyo": df_tokyo, "osaka": df_osaka, "hyogo": df_hyogo}
 
     n_lines = df_places_to_plot["place"].size
