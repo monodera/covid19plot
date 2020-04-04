@@ -343,19 +343,31 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
     df_global = read_jhu_data()
     df_hawaii = read_hawaii_data()
     df_counties, df_states = read_nyt_data()
-    df_tokyo = read_tokyolike_data(
-        url="https://raw.githubusercontent.com/tokyo-metropolitan-gov/covid19/development/data/data.json",
-        primary_column="patients_summary",
-    )
-    df_osaka = read_tokyolike_data(
-        url="https://raw.githubusercontent.com/codeforosaka/covid19/development/data/data.json",
-        primary_column="patients_summary",
-    )
-    df_hyogo = read_tokyolike_data(
-        url="https://raw.githubusercontent.com/stop-covid19-hyogo/covid19/development/data/patients_summary.json",
-        primary_column=None,
-    )
-    df_japan = {"tokyo": df_tokyo, "osaka": df_osaka, "hyogo": df_hyogo}
+
+    df_japan = {}
+    for name, url, primary_column in [
+	    (
+		"tokyo",
+		"https://raw.githubusercontent.com/tokyo-metropolitan-gov/covid19/development/data/data.json",
+		"patients_summary"
+	    ),
+	    (
+		"osaka",
+		"https://raw.githubusercontent.com/codeforosaka/covid19/development/data/data.json",
+		"patients_summary"
+	    ),
+	    (
+		"hyogo",
+		"https://raw.githubusercontent.com/stop-covid19-hyogo/covid19/development/data/patients_summary.json",
+		None
+	    ),
+	    (
+		"hiroshima",
+		"https://raw.githubusercontent.com/tatsuya1970/covid19/development/data/data.json",
+		"patients_summary"
+	    )
+	]:
+        df_japan.update(  { name: read_tokyolike_data( url=url, primary_column=primary_column ) } )
 
     n_lines = df_places_to_plot["place"].size
     colors = cc.glasbey_dark[:n_lines]
@@ -424,6 +436,7 @@ if __name__ == "__main__":
                 "Tokyo",
                 "Osaka",
                 "Hyogo",
+                "Hiroshima",
                 "Santa Clara",
                 "California",
                 "Hawaii",
@@ -444,6 +457,7 @@ if __name__ == "__main__":
             "category": [
                 "hawaii",
                 "hawaii",
+                "japan",
                 "japan",
                 "japan",
                 "japan",
