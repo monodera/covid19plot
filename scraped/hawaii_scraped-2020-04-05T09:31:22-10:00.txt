@@ -1,0 +1,40 @@
+|,Novel Coronavirus in Hawaii COVID-19 Positive* Cases  Cumulative totals as of 12:00 noon on April 4, 2020,|
+|,,|,Newly Reported,|,Total,|
+|,Statewide,|,,|,,|
+|,Total Cases,|,32,|,351,|
+|,Released from Isolation††,|,4,|,82,|
+|,Required Hospitalization,|,1,|,19,|
+|,Deaths,|,0,|,3‡,|
+|,,|,,|,,|
+|,BY COUNTY,|
+|,,|,Change from 4/3/2020†,|,Total,|
+|,Hawaii  County,|,,|,,|
+|,Total Cases,|,2,|,22,|
+|,Released from Isolation††,|,0,|,6,|
+|,Required Hospitalization,|,0,|,0,|
+|,Deaths,|,0,|,0,|
+|,,|,,|,,|
+|,Honolulu County,|,,|,,|
+|,Total Cases,|,29,|,266,|
+|,Released from Isolation††,|,4,|,61,|
+|,Required Hospitalization,|,1,|,17,|
+|,Deaths,|,0,|,3‡,|
+|,,|,,|,,|
+|,Kauai County,|,,|,,|
+|,Total Cases,|,2,|,15,|
+|,Released from Isolation††,|,0,|,4,|
+|,Required Hospitalization,|,0,|,1,|
+|,Deaths,|,0,|,0,|
+|,,|,,|,,|
+|,Maui County,|,,|,,|
+|,Total Cases,|,2,|,38,|
+|,Released from Isolation††,|,0,|,11,|
+|,Required Hospitalization,|,0,|,1,|
+|,Deaths,|,0,|,0,|
+|,,|,,|,,|
+|,HI Residents diagnosed outside of HI,|,0,|,2,|
+|,County Pending,|,-3,|,8,|
+|,*includes presumptive and confirmed cases, data are preliminary and subject to change; note that CDC provides case counts according to states of residence.
+†Changes reflect both newly reported cases and additional information collected on previously reported cases. Negative pending counts indicate previously reported cases that were not included in county totals, but have been reclassified based on new information.
+††Isolation should be maintained until at least 3 days (72 hours) after resolution of fever and myalgia without the use of antipyretics OR at least 7 days have passed since symptom onset, whichever is longer.
+‡A fourth death was reported on 4/4/2020 in a hospitalized individual on Oahu and will be included in tomorrow’s counts.,|
