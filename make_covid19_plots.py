@@ -346,28 +346,35 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
 
     df_japan = {}
     for name, url, primary_column in [
-	    (
-		"tokyo",
-		"https://raw.githubusercontent.com/tokyo-metropolitan-gov/covid19/development/data/data.json",
-		"patients_summary"
-	    ),
-	    (
-		"osaka",
-		"https://raw.githubusercontent.com/codeforosaka/covid19/development/data/data.json",
-		"patients_summary"
-	    ),
-	    (
-		"hyogo",
-		"https://raw.githubusercontent.com/stop-covid19-hyogo/covid19/development/data/patients_summary.json",
-		None
-	    ),
-	    (
-		"hiroshima",
-		"https://raw.githubusercontent.com/tatsuya1970/covid19/development/data/data.json",
-		"patients_summary"
-	    )
-	]:
-        df_japan.update(  { name: read_tokyolike_data( url=url, primary_column=primary_column ) } )
+        (
+            "tokyo",
+            "https://raw.githubusercontent.com/tokyo-metropolitan-gov/covid19/development/data/data.json",
+            "patients_summary",
+        ),
+        (
+            "osaka",
+            "https://raw.githubusercontent.com/codeforosaka/covid19/development/data/data.json",
+            "patients_summary",
+        ),
+        (
+            "hyogo",
+            "https://raw.githubusercontent.com/stop-covid19-hyogo/covid19/development/data/patients_summary.json",
+            None,
+        ),
+        (
+            "hiroshima",
+            "https://raw.githubusercontent.com/tatsuya1970/covid19/development/data/data.json",
+            "patients_summary",
+        ),
+        (
+            "fukuoka",
+            "https://raw.githubusercontent.com/Code-for-Fukuoka/covid19-fukuoka/development/data/data.json",
+            "patients_summary",
+        ),
+    ]:
+        df_japan.update(
+            {name: read_tokyolike_data(url=url, primary_column=primary_column)}
+        )
 
     n_lines = df_places_to_plot["place"].size
     colors = cc.glasbey_dark[:n_lines]
@@ -437,6 +444,7 @@ if __name__ == "__main__":
                 "Osaka",
                 "Hyogo",
                 "Hiroshima",
+                "Fukuoka",
                 "Santa Clara",
                 "California",
                 "Hawaii",
@@ -457,6 +465,7 @@ if __name__ == "__main__":
             "category": [
                 "hawaii",
                 "hawaii",
+                "japan",
                 "japan",
                 "japan",
                 "japan",
