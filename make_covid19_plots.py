@@ -2,7 +2,7 @@
 
 # %%
 import os
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta, date, timezone
 import pandas as pd
 import numpy as np
 from functools import reduce
@@ -322,7 +322,7 @@ def plot_cases(
     pp.legend.click_policy = "mute"
     pp.legend.title = "Click to highlight"
     pp.legend.label_text_font_size = "8pt"
-    pp.x_range = Range1d(datetime(2020, 1, 1), datetime.now())
+    pp.x_range = Range1d(datetime(2020, 1, 1), datetime.now(timezone.utc))
     pp.y_range = Range1d(ymin, ymax)
 
     hover = pp.select(dict(type=HoverTool))
