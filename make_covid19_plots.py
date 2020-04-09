@@ -368,7 +368,8 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
         ),
         (
             "fukuoka",
-            "https://raw.githubusercontent.com/Code-for-Fukuoka/covid19-fukuoka/development/data/data.json",
+            "https://fukuoka.stopcovid19.jp/data.json",
+            # "https://raw.githubusercontent.com/Code-for-Fukuoka/covid19-fukuoka/development/data/data.json",
             "patients_summary",
         ),
     ]:
