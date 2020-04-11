@@ -390,7 +390,7 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
         colors,
         case="cases",
         ymin=0.9,
-        ymax=5e5,
+        ymax=9e5,
         thresh_confirmed=3000,
     )
     p1.title.text = 'Number of "confirmed" cases'
@@ -405,7 +405,7 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
         colors,
         case="deaths",
         ymin=0.9,
-        ymax=5e5,
+        ymax=9e6,
         thresh_confirmed=3000,
     )
     p2.title.text = 'Number of "deaths"'
