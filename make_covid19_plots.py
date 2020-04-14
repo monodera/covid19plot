@@ -368,11 +368,13 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
         ),
         (
             "fukuoka",
-            "https://fukuoka.stopcovid19.jp/data.json",
-            # "https://raw.githubusercontent.com/Code-for-Fukuoka/covid19-fukuoka/development/data/data.json",
+            # "https://fukuoka.stopcovid19.jp/data.json",
+            "https://raw.githubusercontent.com/Code-for-Fukuoka/covid19-fukuoka/development/data/data.json",
+            # "https://raw.githubusercontent.com/Code-for-Fukuoka/covid19-fukuoka/master/data/data.json"
             "patients_summary",
         ),
     ]:
+        print(name)
         df_japan.update(
             {name: read_tokyolike_data(url=url, primary_column=primary_column)}
         )
