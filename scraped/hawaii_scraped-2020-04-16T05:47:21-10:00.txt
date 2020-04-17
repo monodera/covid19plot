@@ -1,0 +1,38 @@
+|,Novel Coronavirus in Hawaii COVID-19 Positive* Cases  Cumulative totals as of 12:00 noon on April 15, 2020,|
+|,,|,Total,|
+|,Statewide,|,,|
+|,Total Cases,|,530 (13 newly reported),|
+|,Released from Isolation†,|,359,|
+|,Required Hospitalization,|,45,|
+|,Deaths,|,9,|
+|,,|,,|
+|,BY COUNTY,|
+|,,|,Total,|
+|,Hawaii  County,|,,|
+|,Total Cases,|,41,|
+|,Released from Isolation†,|,30,|
+|,Required Hospitalization,|,0,|
+|,Deaths,|,0,|
+|,,|,,|
+|,Honolulu County,|,,|
+|,Total Cases,|,369,|
+|,Released from Isolation†,|,271,|
+|,Required Hospitalization,|,37,|
+|,Deaths,|,6,|
+|,,|,,|
+|,Kauai County,|,,|
+|,Total Cases,|,21,|
+|,Released from Isolation†,|,16,|
+|,Required Hospitalization,|,1,|
+|,Deaths,|,0,|
+|,,|,,|
+|,Maui County,|,,|
+|,Total Cases,|,92,|
+|,Released from Isolation†,|,42,|
+|,Required Hospitalization,|,7,|
+|,Deaths,|,3,|
+|,,|,,|
+|,HI Residents diagnosed outside of HI,|,6,|
+|,County Pending,|,1,|
+|,*includes presumptive and confirmed cases, data are preliminary and subject to change; note that CDC provides case counts according to states of residence.
+†Isolation should be maintained until at least 3 days (72 hours) after resolution of fever and myalgia without the use of antipyretics OR at least 7 days have passed since symptom onset, whichever is longer.,|
