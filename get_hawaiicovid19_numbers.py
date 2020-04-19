@@ -23,32 +23,54 @@ soup = BeautifulSoup(html, "lxml")
 
 # %%
 html_tb = soup.find_all(
-    "tr",
+    "table",
+    # "tr",
     # style="height: 24px; font-size: 15px;"
     # style="height: 260px; width: 500px; border-collapse: collapse; border: thin solid #c8c8c8; margin-right: 15px;",
     # class_="tablepress tablepress-id-2 reportedcases"
 )
+html_h2 = soup.find_all("h2",)
+html_thead = soup.find_all("thead")
+
 # print(html_tb)
+
+for h2 in html_h2:
+    print("# h2: {}".format(h2.get_text()))
+
+for thead in html_thead:
+    print("# thead: {}".format(thead.tr.th.get_text()))
 
 # %%
 # print(html_tb[0])
-tb_header = ascii.read(
-    "<table>" + str(html_tb[0]) + "</table>",
-    format="html",
-    # names=["county", "hawaii_residents", "nonhawaii_residents", "number"],
+str_strip = (
+    str(html_tb[0])
+    .replace("<strong>", "")
+    .replace("</strong>", "")
+    .replace("<thead>", "")
+    .replace("</thead>", "")
+    .replace("\xa0", " ")
+    .replace(">", ">\n")
 )
-tb_header.write(sys.stdout, format="ascii.fixed_width_no_header", delimiter_pad=",")
+tb_header = ascii.read(str_strip, format="html", names=["case", "number"],)
+tb_header.write(sys.stdout, format="ascii.fixed_width")  # , delimiter_pad=",")
 
 # %%
 for i in range(1, len(html_tb)):
-    tb_body_tmp = ascii.read(
-        "<table>" + str(html_tb[i]) + "</table>",
-        format="html",
-        # names=["county", "hawaii_residents", "nonhawaii_residents", "number"],
+    str_strip = (
+        str(html_tb[i])
+        .replace("<strong>", "")
+        .replace("</strong>", "")
+        .replace("<thead>", "")
+        .replace("</thead>", "")
+        .replace("\xa0", " ")
+        .replace(">", ">\n")
     )
-    tb_body_tmp.write(
-        sys.stdout, format="ascii.fixed_width_no_header", delimiter_pad=","
-    )
+    try:
+        tb_body_tmp = ascii.read(str_strip, format="html", names=["case", "number"])
+        tb_body_tmp.write(sys.stdout, format="ascii.fixed_width_no_header")
+    except:
+        print(html_tb[i].get_text("   "))
+
 
 # print(tb_body)
 
@@ -104,3 +126,31 @@ for i in range(1, len(html_tb)):
 
 # print("")
 # print("{:s} is created.".format(outfile))
+
+
+# s = """
+# <html>
+#     <head>
+#     </head>
+#     <body>
+#         <table>
+#             <tr>
+#                 <td>Total Cases</td>
+#                 <td>574 (21 newly reported)</td>
+#             </tr>
+#             <tr>
+#                 <td>Released from Isolation</td>
+#                 <td>410</td>
+#             </tr>
+#             <tr>
+#                 <td>Required Hospitalization</td>
+#                 <td>51</td>
+#             </tr>
+#             <tr>
+#                 <td>Deaths</td>
+#                 <td>9</td>
+#             </tr>
+#         </table>
+#     </body>
+# </html>
+# """
