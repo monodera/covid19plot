@@ -1,0 +1,38 @@
+# h2: COVID-19
+# h2: Current Situation in Hawaii
+# h2: Hawaii COVID-19 Cases
+# h2: Hawaii COVID-19 Map
+# h2: Hawaii COVID-19 Epi Curve
+# h2: Hawaii COVID-19 Confirmed Cases by Age Group
+# h2: Hawaii COVID-19 Cumulative Number of Reported Lab Tests
+# h2: Hawaii COVID-19 Lab Testing by County
+# h2: Hawaii COVID-19 Cases’ Race Compared to State Population
+# thead: HAWAII COUNTY
+# thead: HONOLULU COUNTY
+# thead: KAUAI COUNTY
+# thead: MAUI COUNTY
+# thead: HI Residents diagnosed outside of HI
+# thead: County Pending
+|                     case |                 number |
+|              Total Cases | 604 (3 newly reported) |
+| Released from Isolation† |                    482 |
+| Required Hospitalization |                     68 |
+|                   Deaths |                     14 |
+|              Total Cases | 69 total |
+| Released from Isolation† |       47 |
+| Required Hospitalization |        1 |
+|                   Deaths |        0 |
+|              Total Cases | 395 total |
+| Released from Isolation† |       343 |
+| Required Hospitalization |        53 |
+|                   Deaths |         9 |
+|              Total Cases | 21 total |
+| Released from Isolation† |       19 |
+| Required Hospitalization |        1 |
+|                   Deaths |        0 |
+|              Total Cases | 112‡ total |
+| Released from Isolation† |         73 |
+| Required Hospitalization |         13 |
+|                   Deaths |          5 |
+HI Residents diagnosed outside of HI   7 total
+County Pending   0 total
