@@ -375,10 +375,17 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
         ),
     ]:
         print(name)
-        df_japan.update(
-            {name: read_tokyolike_data(url=url, primary_column=primary_column)}
-        )
 
+        try:
+            df_japan.update(
+                {name: read_tokyolike_data(url=url, primary_column=primary_column)}
+            )
+        except:
+            # print("    some error occurred to read the database")
+            df_places_to_plot = df_places_to_plot[
+                df_places_to_plot["place"].str.lower() != name
+            ]
+    print(df_places_to_plot)
     n_lines = df_places_to_plot["place"].size
     colors = cc.glasbey_dark[:n_lines]
 
@@ -392,7 +399,7 @@ def plot_covid19_timeseries(outdir, df_places_to_plot):
         colors,
         case="cases",
         ymin=0.9,
-        ymax=9e5,
+        ymax=9e6,
         thresh_confirmed=3000,
     )
     p1.title.text = 'Number of "confirmed" cases'
