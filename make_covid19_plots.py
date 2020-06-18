@@ -473,8 +473,8 @@ if __name__ == "__main__":
                 "US",
             ],
             "category": [
-                "hawaii",
-                "hawaii",
+                "county",
+                "county",
                 "japan",
                 "japan",
                 "japan",
